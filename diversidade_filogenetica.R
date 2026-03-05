@@ -57,23 +57,14 @@ matriz <- readxl::read_xlsx("registros_finais.xlsx")
 
 matriz_trat <- matriz |>
   dplyr::filter(Assemblage != 341) |>
-  dplyr::select(6:105) |>
-  as.data.frame()
-
-rownames(matriz_trat) <- matriz$Assemblage[matriz$Assemblage != 341] |> as.character()
-
-colnames(matriz_trat) <- matriz_trat |> names() |>
-  stringr::str_replace(" ", "_") |>
-  stringr::str_replace("Boana_creptans", "Boana_crepitans") |>
-  stringr::str_replace("Adelophrynne_nordestina", "Adelophryne_nordestina") |>
-  stringr::str_replace("Olygon_melanodactyla", "Ololygon_melanodactyla") |>
-  stringr::str_replace("Pleurodema_diplolistris", "Pleurodema_diplolister")
+  tibble::column_to_rownames(var = "Assemblage") |>
+  dplyr::select(5:104)
 
 ### Visualizando ----
 
-matriz_trat |> dplyr::glimpse()
-
 matriz_trat
+
+matriz_trat |> dplyr::glimpse()
 
 # Diversidade filogenética ----
 
