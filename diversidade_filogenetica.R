@@ -62,6 +62,12 @@ matriz |> dplyr::glimpse()
 ### Tratando ----
 
 matriz_trat <- matriz |>
+  tidyr::pivot_longer(cols = 6:105,
+                      names_to = "Species",
+                      values_to = "Presence") |>
+  dplyr::mutate(Species = Species |> stringr::str_replace(" ", "_")) |>
+  tidyr::pivot_wider(names_from = Species,
+                     values_from = Presence) |>
   dplyr::filter(Assemblage != 341) |>
   tibble::column_to_rownames(var = "Assemblage") |>
   dplyr::select(5:104)
