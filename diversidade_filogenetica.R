@@ -10,6 +10,8 @@ library(picante)
 
 library(phytools)
 
+library(ggview)
+
 library(betapart)
 
 # Dados ----
@@ -133,7 +135,7 @@ riqueza_cor |>
   dplyr::select(-igual) |>
   ggplot(aes(Var1, Var2, fill = value, label = value)) +
   geom_tile(color = "black", linewidth = 1) +
-  geom_text() +
+  geom_text(size = 7) +
   coord_equal() +
   scale_fill_gradientn(colours = c(viridis::viridis(n = 10) |> rev(), viridis::viridis(n = 10)),
                        limits = c(-1, 1),
@@ -152,7 +154,8 @@ riqueza_cor |>
         axis.text.x = element_text(angle = 45, hjust = 1),
         legend.text = element_text(color = "black", size = 15),
         legend.title = element_text(color = "black", size = 15),
-        legend.position = "bottom")
+        legend.position = "bottom") +
+  ggview::canvas(height = 10, width = 12)
 
 ## Unindo os dados ----
 
