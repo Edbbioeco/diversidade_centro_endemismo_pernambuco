@@ -22,17 +22,19 @@ riqueza <- readxl::read_xlsx("valores_riqueza.xlsx")
 
 ### Visualizando ----
 
-riqueza |> dplyr::glimpse()
-
 riqueza
+
+riqueza |> dplyr::glimpse()
 
 ## Árvore filogenética ----
 
 ### Importando ----
 
-tree <- ape::read.tree("arvore.tre")
+tree <- ape::read.tree("tree_cep.phy")
 
 ### Visualizando ----
+
+tree
 
 tree$tip.label
 
