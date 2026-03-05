@@ -39,12 +39,12 @@ tree
 tree$tip.label
 
 tree |> ape::plot.phylo(type = "fan",
-                              show.tip.label = TRUE,
-                              edge.color = "blue",
-                              edge.width = 1.5,
-                              tip.color = "black",
-                              cex = 0.75,
-                              label.offset = 0.001)
+                        show.tip.label = TRUE,
+                        edge.color = "blue",
+                        edge.width = 1.5,
+                        tip.color = "black",
+                        cex = 0.75,
+                        label.offset = 0.001)
 
 
 ## Matriz de composição ----
@@ -53,14 +53,18 @@ tree |> ape::plot.phylo(type = "fan",
 
 matriz <- readxl::read_xlsx("registros_finais.xlsx")
 
+### Visualizando ----
+
+matriz
+
+matriz |> dplyr::glimpse()
+
 ### Tratando ----
 
 matriz_trat <- matriz |>
   dplyr::filter(Assemblage != 341) |>
   tibble::column_to_rownames(var = "Assemblage") |>
   dplyr::select(5:104)
-
-### Visualizando ----
 
 matriz_trat
 
