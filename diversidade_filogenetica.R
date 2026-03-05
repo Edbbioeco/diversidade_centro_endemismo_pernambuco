@@ -62,7 +62,7 @@ matriz |> dplyr::glimpse()
 ### Tratando ----
 
 matriz_trat <- matriz |>
-  tidyr::pivot_longer(cols = 6:105,
+  tidyr::pivot_longer(cols = 6:102,
                       names_to = "Species",
                       values_to = "Presence") |>
   dplyr::mutate(Species = Species |> stringr::str_replace(" ", "_")) |>
@@ -70,7 +70,7 @@ matriz_trat <- matriz |>
                      values_from = Presence) |>
   dplyr::filter(Assemblage != 341) |>
   tibble::column_to_rownames(var = "Assemblage") |>
-  dplyr::select(5:104)
+  dplyr::select(5:101)
 
 matriz_trat
 
@@ -83,8 +83,6 @@ matriz_trat |> dplyr::glimpse()
 ### Diversidade filogenética ----
 
 tree$tip.label
-
-ape::is.rooted(tree)
 
 matriz_trat_phy <- picante::match.phylo.comm(phy = tree,
                                              comm = matriz_trat)$comm
