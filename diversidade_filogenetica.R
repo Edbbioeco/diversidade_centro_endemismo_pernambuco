@@ -10,6 +10,8 @@ library(picante)
 
 library(phytools)
 
+library(nlme)
+
 library(ggview)
 
 library(betapart)
@@ -173,7 +175,8 @@ pd_trat
 
 pd_trat2 <- pd_trat
 
-colnames(pd_trat2) <- pd_trat |> names |>
+colnames(pd_trat2) <- pd_trat |>
+  names() |>
   stringr::str_replace_all(" ", "_") |>
   stringr::str_remove_all("%_|'")
 
@@ -230,7 +233,8 @@ pd_trat_gg |>
         legend.title = element_text(color = "black", size = 15),
         strip.background = element_rect(color = "black", linewidth = 1),
         panel.border = element_rect(color = "black", linewidth = 1),
-        legend.position = "none")
+        legend.position = "none") +
+  ggview::canvas(height = 10, width = 12)
 
 ggsave(filename = "modelo_pd.png", height = 10, width = 12)
 
@@ -334,7 +338,8 @@ pd_trat_gg |>
         legend.title = element_text(color = "black", size = 15),
         strip.background = element_rect(color = "black", linewidth = 1),
         panel.border = element_rect(color = "black", linewidth = 1),
-        legend.position = "none")
+        legend.position = "none") +
+  ggview::canvas(height = 10, width = 12)
 
 ggsave(filename = "modelo_mntd.png", height = 10, width = 12)
 
