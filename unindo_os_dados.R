@@ -6,7 +6,7 @@ library(tidyverse)
 
 library(sf)
 
-library(openxlsx)
+library(writexl)
 
 # Dados ----
 
