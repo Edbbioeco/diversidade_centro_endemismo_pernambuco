@@ -176,9 +176,9 @@ matriz <- registros |>
   dplyr::left_join(registros |>
                      dplyr::rename("Assemblage" = FID) |>
                      dplyr::select(1, 4:6),
-                   by = "Assemblage") |>
-  dplyr::relocate(Latitude:Source,
-                  .before = `Leptodactylus fuscus`) |>
+                   by = "Assemblage") |> dplyr::glimpse()
+  dplyr::relocate(Source:Latitude,
+                  .before = `Adenomera hylaedactyla`) |>
   dplyr::distinct(Assemblage, .keep_all = TRUE)
 
 matriz
