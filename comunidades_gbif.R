@@ -30,14 +30,6 @@ oc_gbif_trat <- oc_gbif |>
   dplyr::select(species, stateProvince, decimalLatitude:decimalLongitude) |>
   dplyr::rename("Latitude" = decimalLatitude,
                 "Longitude" = decimalLongitude) |>
-  dplyr::mutate(Latitude = Latitude |> as.numeric(),
-                Longitude = Longitude |> as.numeric(),
-                Latitude = dplyr::if_else(Latitude < -12,
-                                          Latitude / 1e6,
-                                          Latitude),
-                Latitude = dplyr::if_else(Latitude < -12,
-                                          Latitude / 10,
-                                          Latitude)) |>
   dplyr::mutate(Longitude = Longitude |>
                   stringr::str_replace("^(-?\\d{2})(\\d+)$", "\\1.\\2") |>
                   as.numeric(),
