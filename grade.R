@@ -61,6 +61,10 @@ cep |>
 
 ## Valor dos graqus para 10 km ----
 
+graus_10km <- (10*1)/111.3194
+
+graus_10km
+
 ## Criando a grade ----
 
 grade <- sf::st_make_grid(cep,
