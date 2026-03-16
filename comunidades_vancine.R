@@ -12,7 +12,22 @@ library(writexl)
 
 ### Importando ----
 
+id_sps <- readr::read_csv("C:/Users/LENOVO/OneDrive/Documentos/curso_diversidade_taxonomica_simpzoo/ATLANTIC_AMPHIBIANS_species.csv")
+
 ### visualizando ----
+
+id_sps
+
+id_sps |> dplyr::glimpse()
+
+### Tratando ----
+
+id_sps_trat <- id_sps |>
+  dplyr::select(id, valid_name) |>
+  dplyr::filter(!valid_name |> is.na()) |>
+  dplyr::rename("species" = valid_name)
+
+id_sps_trat
 
 ## Ocorrências ----
 
