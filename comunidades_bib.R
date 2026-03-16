@@ -86,15 +86,31 @@ ggplot() +
 
 ### Intersecção ----
 
-oc_bib_inter <- grade_cep |> sf::st_join(oc_bib_shp, join = st_intersects) |>
+oc_bib_inter <- grade_cep |>
+  sf::st_join(oc_bib_shp, join = st_intersects) |>
   dplyr::filter(!is.na(Espécie)) |>
   tibble::as_tibble() |>
   dplyr::select(FID:Família, Espécie) |>
   dplyr::rename("family" = Família,
                 "species" = Espécie,
                 "presence" = Presença) |>
+  dplyr::mutate(presence = 1,
+                Source = "bib") |>
   dplyr::select(-Área) |>
-  dplyr::relocate(species:presence, .after = family)
+  dplyr::relocate(species:presence, .after = family) |>
+  dplyr::bind_cols(grade_cep |>
+                     sf::st_join(oc_bib_shp, join = st_intersects) |>
+                     dplyr::filter(!is.na(Espécie) & Espécie |>
+                                     stringr::word(2) != "NA") |>
+                     dplyr::select(FID, Espécie) |>
+                     dplyr::mutate(presence = 1) |>
+                     dplyr::rename("species" = Espécie) |>
+                     dplyr::distinct(FID, species, .keep_all = TRUE) |>
+                     sf::st_centroid() |>
+                     sf::st_coordinates() |>
+                     tibble::as_tibble() |>
+                     dplyr::rename("Longitude" = X,
+                                   "Latitude" = Y))
 
 oc_bib_inter
 
@@ -109,4 +125,4 @@ oc_bib_inter |>
 ### Exportando ----
 
 oc_bib_inter |>
-  openxlsx::write.xlsx("registros_bib.xslx")
+  openxlsx::write.xlsx("registros_bib.xlsx")
