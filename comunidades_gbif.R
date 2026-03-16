@@ -20,9 +20,9 @@ oc_gbif <- readxl::read_xlsx("ocorrencias_gbif.xlsx")
 
 ### Visualizanddo ----
 
-oc_gbif |> dplyr::glimpse()
-
 oc_gbif
+
+oc_gbif |> dplyr::glimpse()
 
 ### Tratando ----
 
