@@ -6,6 +6,8 @@ library(tidyverse)
 
 library(sf)
 
+library(ggview)
+
 # Dados ----
 
 ## Estados ----
@@ -41,7 +43,7 @@ ma |>
 
 ## Centro de Endemismo Pernambuco ----
 
-### Cehcando os crs ----
+### Checando os crs ----
 
 sf::st_crs(ma) == sf::st_crs(estados)
 
