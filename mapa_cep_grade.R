@@ -55,12 +55,13 @@ ggplot() +
 ## Mapa principal ----
 
 mapa_princ <- ggplot() +
-  geom_sf(data = br, color = "black", aes(fill = "Brasil"), linewidth = 0.5) +
+  geom_sf(data = br, color = "black", aes(fill = "Brasil"),
+          linewidth = 0.75) +
   geom_sf(data = cep, color = "black", aes(fill = "Estados do CEP"),
-          linewidth = 0.5) +
+          linewidth = 1) +
   geom_sf(data = grade_cep, fill = "transparent",
           aes(color = "Malha de Grade"),
-          linewidth = 0.5) +
+          linewidth = 1) +
   coord_sf(xlim = c(-41.3585, -32.3778),
            ylim = c(-10.501, -3.805),
            label_graticule = "NSEW") +
