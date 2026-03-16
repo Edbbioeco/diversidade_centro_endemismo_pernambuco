@@ -66,3 +66,42 @@ grade_cep
 grade_cep |>
   ggplot() +
   geom_sf(color = "black", fill = "green4")
+
+# Comunidades ----
+
+## Criando um shapefile das ocorrências ----
+
+oc_vancine_shp <- oc_vancine_trat |>
+  sf::st_as_sf(coords = c("longitude", "latitude"),
+               crs = grade_cep |> sf::st_crs())
+
+oc_vancine_shp
+
+ggplot() +
+  geom_sf(data = grade_cep) +
+  geom_sf(data = oc_vancine_shp)
+
+## Espécies por grade ----
+
+### Intersecção ----
+
+oc_vancine_inter <- grade_cep |>
+  sf::st_join(oc_vancine_shp,
+              join = st_intersects) |>
+  dplyr::filter(!species |> is.na()) |>
+  tibble::as_tibble() |>
+  dplyr::select(FID, species) |>
+  dplyr::mutate(presence = 1,
+                Source = "GBIF") |>
+  dplyr::bind_cols(grade_cep |>
+                     sf::st_join(oc_vancine_shp,
+                                 join = st_intersects) |>
+                     dplyr::filter(!is.na(species)) |>
+                     sf::st_centroid() |>
+                     sf::st_coordinates() |>
+                     tibble::as_tibble() |>
+                     dplyr::select(1:2) |>
+                     dplyr::rename("Longitude" = X,
+                                   "Latitude" = Y))
+
+oc_vancine_inter
