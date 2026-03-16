@@ -16,14 +16,14 @@ oc_sibbr <- readr::read_csv("C:/Users/LENOVO/OneDrive/Documentos/anuros_caatinga
 
 ### Visualizanddo ----
 
-oc_sibbr |> dplyr::glimpse()
-
 oc_sibbr
+
+oc_sibbr |> dplyr::glimpse()
 
 ### Tratando ----
 
 oc_sibbr_trat <- oc_sibbr |>
-  dplyr::select(scientificName, decimalLatitude:decimalLongitude) |>
+  dplyr::select(family, scientificName, decimalLatitude:decimalLongitude) |>
   dplyr::rename("Longitude" = decimalLongitude,
                 "Latitude" = decimalLatitude,
                 "species" = scientificName) |>
@@ -72,7 +72,7 @@ oc_sibbr_inter <- grade_cep |>
   sf::st_join(oc_sibbr_shp, join = st_intersects) |>
   dplyr::filter(!is.na(species) & species |> stringr::word(2) != "NA") |>
   tibble::as_tibble() |>
-  dplyr::select(FID, species) |>
+  dplyr::select(FID, family, species) |>
   dplyr::mutate(presence = 1,
                 Source = "SiBBr") |>
   dplyr::bind_cols(grade_cep |>
