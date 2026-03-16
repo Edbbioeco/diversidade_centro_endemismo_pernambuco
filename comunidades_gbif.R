@@ -27,7 +27,7 @@ oc_gbif |> dplyr::glimpse()
 ### Tratando ----
 
 oc_gbif_trat <- oc_gbif |>
-  dplyr::select(species, stateProvince, decimalLatitude:decimalLongitude) |>
+  dplyr::select(family, species, stateProvince, decimalLatitude:decimalLongitude) |>
   dplyr::rename("Latitude" = decimalLatitude,
                 "Longitude" = decimalLongitude) |>
   dplyr::mutate(Longitude = Longitude |>
@@ -50,9 +50,9 @@ oc_gbif_trat <- oc_gbif |>
                   species |> stringr::word(2) != "NA") |>
   dplyr::distinct(species, Longitude, Latitude, .keep_all = TRUE)
 
-oc_gbif_trat |> dplyr::glimpse()
-
 oc_gbif_trat
+
+oc_gbif_trat |> dplyr::glimpse()
 
 ## Grade ----
 
@@ -91,7 +91,7 @@ oc_gbif_inter <- grade_cep |>
               join = st_intersects) |>
   dplyr::filter(!species |> is.na()) |>
   tibble::as_tibble() |>
-  dplyr::select(FID, species) |>
+  dplyr::select(FID, family, species) |>
   dplyr::mutate(presence = 1,
                 Source = "GBIF") |>
   dplyr::bind_cols(grade_cep |>
