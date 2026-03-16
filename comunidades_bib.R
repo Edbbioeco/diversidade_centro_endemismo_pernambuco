@@ -33,9 +33,9 @@ coord_bib <- readxl::read_xlsx("anfibios_inventários.xlsx",
 
 ### Visualizanddo ----
 
-coord_bib |> dplyr::glimpse()
-
 coord_bib
+
+coord_bib |> dplyr::glimpse()
 
 ### Tratando ----
 
