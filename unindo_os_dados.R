@@ -200,7 +200,7 @@ comunidades <- matriz |>
   as.data.frame() |>
   tibble::rownames_to_column() |>
   dplyr::rename("riqueza" = 2) |>
-  dplyr::filter(riqueza >= 5) |>
+  dplyr::filter(riqueza >= 2) |>
   dplyr::pull(rowname)
 
 comunidades
@@ -218,7 +218,7 @@ ggplot() +
 ### Removendo possíveies espécies sem registro ----
 
 especies_retirar <- matriz_trat |>
-  tidyr::pivot_longer(cols = 5:108,
+  tidyr::pivot_longer(cols = 6:133,
                       names_to = "Espécie",
                       values_to = "Presença") |>
   dplyr::summarise(Abundancia = Presença |> sum(),
@@ -239,12 +239,12 @@ matriz_trat
 
 registros |>
   dplyr::rename("Assemblage" = FID) |>
-  openxlsx::write.xlsx("registros.xlsx")
+  writexl::write_xlsx("registros.xlsx")
 
 ## Matriz ----
 
 matriz |>
-  openxlsx::write.xlsx("matriz.xlsx")
+  writexl::write_xlsx("matriz.xlsx")
 
 matriz_trat |>
-  openxlsx::write.xlsx("matriz_trat.xlsx")
+  writexl::write_xlsx("matriz_trat.xlsx")
