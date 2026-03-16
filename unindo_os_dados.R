@@ -10,6 +10,31 @@ library(writexl)
 
 # Dados ----
 
+## Importando -----
+
+importar_registros <- function(registro, fonte){
+
+  dado_registro <- readxl::read_xlsx(registro)
+
+  assign(paste0("registro_", fonte),
+         dado_registro,
+         envir = globalenv())
+
+}
+
+registro <- list.files(pattern = "^registros_")
+
+registro
+
+fonte <- registro |>
+  stringr::str_replace("_", " ") |>
+  stringr::str_remove(".xlsx") |>
+  stringr::word(2)
+
+fonte
+
+## Visualizando ----
+
 ## GBIF ----
 
 ### Importando ----
