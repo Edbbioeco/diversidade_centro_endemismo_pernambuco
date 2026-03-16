@@ -18,9 +18,9 @@ oc_specieslink <- readxl::read_xlsx("C:/Users/LENOVO/OneDrive/Documentos/anuros_
 
 ### Visualizanddo ----
 
-oc_specieslink |> dplyr::glimpse()
-
 oc_specieslink
+
+oc_specieslink |> dplyr::glimpse()
 
 ### Tratando ----
 
