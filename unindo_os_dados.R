@@ -46,7 +46,7 @@ ls(pattern = "registro_") |>
 
 ### Importando ----
 
-grade_cep <- sf::st_read("grade_cep.shp")
+grade_cep <- sf::st_read("cep_grade.shp")
 
 ### Visualizando ----
 
