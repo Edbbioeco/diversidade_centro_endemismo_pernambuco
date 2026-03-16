@@ -12,7 +12,7 @@ library(openxlsx)
 
 ### Importando ----
 
-oc_sibbr <- readr::read_csv("G:/Meu Drive/UFPE/anuros_caatinga/data_sibbr.csv")
+oc_sibbr <- readr::read_csv("C:/Users/LENOVO/OneDrive/Documentos/anuros_caatinga/data_sibbr.csv")
 
 ### Visualizanddo ----
 
