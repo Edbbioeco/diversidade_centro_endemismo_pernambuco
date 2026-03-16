@@ -68,7 +68,7 @@ graus_10km
 ## Criando a grade ----
 
 grade <- sf::st_make_grid(cep,
-                 cellsize = 10000) |>
+                 cellsize = graus_10km) |>
   sf::st_make_valid()
 
 ## Visualizando ----
