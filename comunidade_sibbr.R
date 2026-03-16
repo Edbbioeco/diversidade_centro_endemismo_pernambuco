@@ -68,14 +68,17 @@ ggplot() +
 
 ### Intersecção ----
 
-oc_sibbr_inter <- grade_cep |> sf::st_join(oc_sibbr_shp, join = st_intersects) |>
+oc_sibbr_inter <- grade_cep |>
+  sf::st_join(oc_sibbr_shp, join = st_intersects) |>
   dplyr::filter(!is.na(species) & species |> stringr::word(2) != "NA") |>
   tibble::as_tibble() |>
   dplyr::select(FID, species) |>
   dplyr::mutate(presence = 1,
                 Source = "SiBBr") |>
-  dplyr::bind_cols(grade_cep |> sf::st_join(oc_sibbr_shp, join = st_intersects) |>
-                     dplyr::filter(!is.na(species) & species |> stringr::word(2) != "NA") |>
+  dplyr::bind_cols(grade_cep |>
+                     sf::st_join(oc_sibbr_shp, join = st_intersects) |>
+                     dplyr::filter(!is.na(species) & species |>
+                                     stringr::word(2) != "NA") |>
                      sf::st_centroid() |>
                      sf::st_coordinates() |>
                      tibble::as_tibble() |>
