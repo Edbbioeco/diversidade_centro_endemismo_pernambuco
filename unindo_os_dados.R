@@ -14,7 +14,8 @@ library(writexl)
 
 importar_registros <- function(registro, fonte){
 
-  dado_registro <- readxl::read_xlsx(registro)
+  dado_registro <- readxl::read_xlsx(registro) |>
+    dplyr::mutate(Fonte = fonte)
 
   assign(paste0("registro_", fonte),
          dado_registro,
