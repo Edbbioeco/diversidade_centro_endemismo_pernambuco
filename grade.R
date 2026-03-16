@@ -59,10 +59,11 @@ cep |>
 
 # Grade ----
 
+## Valor dos graqus para 10 km ----
+
 ## Criando a grade ----
 
-grade <- sf::st_make_grid(cep |>
-                   st_transform(crs = 5880),
+grade <- sf::st_make_grid(cep,
                  cellsize = 10000) |>
   sf::st_make_valid()
 
