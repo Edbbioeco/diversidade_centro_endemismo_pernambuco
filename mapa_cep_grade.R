@@ -41,7 +41,7 @@ ggplot() +
 
 ### Importando ----
 
-grade_cep <- sf::st_read("grade_cep.shp")
+grade_cep <- sf::st_read("cep_grade.shp")
 
 ### Visualizando ----
 
@@ -56,7 +56,7 @@ ggplot() +
 
 mapa_princ <- ggplot() +
   geom_sf(data = br, color = "black", aes(fill = "Brasil"), linewidth = 0.5) +
-  geom_sf(data = ne, color = "black", aes(fill = "Estados do CEP"),
+  geom_sf(data = cep, color = "black", aes(fill = "Estados do CEP"),
           linewidth = 0.5) +
   geom_sf(data = grade_cep, fill = "transparent",
           aes(color = "Malha de Grade"),
