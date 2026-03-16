@@ -33,6 +33,8 @@ fonte <- registro |>
 
 fonte
 
+purrr::map2(registro, fonte, importar_registros)
+
 ## Visualizando ----
 
 ## GBIF ----
