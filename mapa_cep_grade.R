@@ -98,7 +98,8 @@ insert_map <- ggplot() +
             color = "darkred",
             fill = "red",
             alpha = 0.5) +
-  theme_void()
+  theme_void() +
+  ggview::canvas(height = 10, width = 12)
 
 insert_map
 
