@@ -25,7 +25,7 @@ oc_specieslink |> dplyr::glimpse()
 ### Tratando ----
 
 oc_specieslink_trat <- oc_specieslink |>
-  dplyr::select(scientificname, longitude:latitude) |>
+  dplyr::select(family, scientificname, longitude:latitude) |>
   dplyr::mutate(longitude = longitude |> as.numeric(),
                 latitude = latitude |> as.numeric()) |>
   dplyr::filter(!scientificname |> stringr::str_detect(" sp| cf| af")) |>
@@ -38,7 +38,7 @@ oc_specieslink_trat |> as.data.frame()
 
 ### Importando ----
 
-grade_cep <- sf::st_read("grade_cep.shp")
+grade_cep <- sf::st_read("cep_grade.shp")
 
 ### Visualizando ----
 
@@ -70,7 +70,7 @@ oc_specieslink_inter <- grade_cep |>
   sf::st_join(oc_specieslink_shp, join = st_intersects) |>
   dplyr::filter(!is.na(scientificname) & scientificname |> stringr::word(2) != "NA") |>
   tibble::as_tibble() |>
-  dplyr::select(FID, scientificname) |>
+  dplyr::select(FID, family, scientificname) |>
   dplyr::mutate(presence = 1,
                 Source = "SpeciesLink") |>
   dplyr::rename("species" = scientificname) |>
