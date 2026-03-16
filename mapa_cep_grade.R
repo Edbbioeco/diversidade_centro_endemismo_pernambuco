@@ -75,7 +75,8 @@ mapa_princ <- ggplot() +
         legend.text = element_text(color = "black", size = 15, face = "bold"),
         legend.title = element_text(color = "black", size = 15),
         legend.position = "bottom",
-        panel.border = element_rect(color = "black", linewidth = 1))
+        panel.border = element_rect(color = "black", linewidth = 1)) +
+  ggview::canvas(height = 10, width = 12)
 
 mapa_princ
 
