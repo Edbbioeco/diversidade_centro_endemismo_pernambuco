@@ -16,8 +16,7 @@ library(writexl)
 
 importar_registros <- function(registro, fonte){
 
-  dado_registro <- readxl::read_xlsx(registro) |>
-    dplyr::mutate(Fonte = fonte)
+  dado_registro <- readxl::read_xlsx(registro)
 
   assign(paste0("registro_", fonte),
          dado_registro,
@@ -61,12 +60,9 @@ grade_cep %>%
 
 ## Unindo os dados de registro ----
 
-registros <- dplyr::bind_rows(registros_gbif,
-                              registros_specieslink,
-                              registros_sibbr,
-                              registros_bib)
-
-## Visualizando ----
+registros <- ls(pattern = "registro_") |>
+  mget(envir = globalenv()) |>
+  dplyr::bind_rows()
 
 registros
 
