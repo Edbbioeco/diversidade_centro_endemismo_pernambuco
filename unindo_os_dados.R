@@ -175,9 +175,9 @@ matriz <- registros |>
                      values_fill = 0) |>
   dplyr::left_join(registros |>
                      dplyr::rename("Assemblage" = FID) |>
-                     dplyr::select(1, 4:6),
-                   by = "Assemblage") |> dplyr::glimpse()
-  dplyr::relocate(Source:Latitude,
+                     dplyr::select(1:2, 4:7),
+                   by = "Assemblage") |>
+  dplyr::relocate(family:Latitude,
                   .before = `Adenomera hylaedactyla`) |>
   dplyr::distinct(Assemblage, .keep_all = TRUE)
 
@@ -194,11 +194,13 @@ matriz <- matriz |> as.data.frame()
 rownames(matriz) <- matriz$Assemblage
 
 comunidades <- matriz |>
-  dplyr::select(5:108) |>
+  tibble::column_to_rownames(var = "Assemblage") |>
+  dplyr::select(6:133) |>
   vegan::specnumber() |>
   as.data.frame() |>
   tibble::rownames_to_column() |>
-  dplyr::filter(. >= 5) |>
+  dplyr::rename("riqueza" = 2) |>
+  dplyr::filter(riqueza >= 5) |>
   dplyr::pull(rowname)
 
 comunidades
