@@ -121,7 +121,17 @@ registros <- registros |>
       "Leptodactylus pentadactylus labyrinthicus") ~ "Leptodactylus vastus",
     "Hypsiboas raniceps" ~ "Boana raniceps",
     "Phyllomedusa nordestina" ~ "Pithecopus gonzagai",
-    "Hypsiboas albomarginatus" ~ "Boana albomarginata",
+    c("Hypsiboas albomarginatus",
+      "Hyla albomarginata") ~ "Boana albomarginata",
+    c("Hyla decipiens branneri",
+      "Hyla decipiens decipiens") ~ "Dendropsophus decipiens",
+    "Hyla crepitans"  ~ "Boana creptans",
+    c("Hyla senicula",
+      "Hyla senicula senicula") ~ "Dendropsophus seniculus",
+    "Hyla leucophyllata" ~ "Dendropsophus leucophyllatus",
+    "Hyla punctata" ~ "Boana punctata",
+    "Phrynohyas venulosa" ~ "Trachycephalus typhonius",
+    "Pristimantis vinhai" ~ "Pristimantis ramagii",
     c("Colostethus alagoanus",
       "Allobates alagoanus",
       "Allobates olfersioides") ~ "Dryadobates alagoanus",
@@ -131,7 +141,7 @@ registros <- registros |>
     "Hypsiboas exastis" ~ "Boana exastis",
     c("Hypsiboas freicanecae",
       "Boana freicanecaee") ~ "Boana freicanecae",
-    "Rana paradoxa" ~ "Lithobates palmipes",
+    c("Rana paradoxa", "Rana palmipes") ~ "Lithobates palmipes",
     "Leptodactylus ocellatus" ~ "Leptodactylus macrosternum",
     c("Bufo granulosus granulosus",
       "Rhinella mirandaribeiroi") ~ "Rhinella granulosa",
@@ -151,13 +161,17 @@ registros <- registros |>
     "Elachistocleis ovalis" ~ "Elachistocleis cesarii",
     "Dendropsophus decioiens" ~ "Dendropsophus decipiens",
     "Leptodactylus marmoratus" ~ "Adenomera hylaedactyla",
+    "Leptodactylus caatingae" ~ "Leptodactylus macrosternum",
     "Agalychnis granulosa" ~ "Hylomantis granulosa",
     c("Adelophrnne nordestina",
       "Adelophrynne nordestina") ~ "Adelophrynne nordestina",
     "Vitreorana balionma" ~ "Vitreorana baliomma",
     .default = species
   )) |>
-  dplyr::filter(!species %in% c("Breviceps gibbosus", "Vitreorana baliomma"))
+  dplyr::filter(!species %in% c("Breviceps gibbosus",
+                                "Vitreorana baliomma",
+                                "Ceratophrys joazeirensis",
+                                "Siphonops annulatus"))
 
 registros
 
@@ -195,7 +209,7 @@ rownames(matriz) <- matriz$Assemblage
 
 comunidades <- matriz |>
   tibble::column_to_rownames(var = "Assemblage") |>
-  dplyr::select(6:133) |>
+  dplyr::select(6:121) |>
   vegan::specnumber() |>
   as.data.frame() |>
   tibble::rownames_to_column() |>
@@ -218,7 +232,7 @@ ggplot() +
 ### Removendo possíveies espécies sem registro ----
 
 especies_retirar <- matriz_trat |>
-  tidyr::pivot_longer(cols = 6:133,
+  tidyr::pivot_longer(cols = 7:122,
                       names_to = "Espécie",
                       values_to = "Presença") |>
   dplyr::summarise(Abundancia = Presença |> sum(),
