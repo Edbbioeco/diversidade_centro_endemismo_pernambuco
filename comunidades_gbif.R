@@ -31,6 +31,7 @@ oc_gbif_trat <- oc_gbif |>
   dplyr::rename("Latitude" = decimalLatitude,
                 "Longitude" = decimalLongitude) |>
   dplyr::mutate(Latitude = Latitude |> as.numeric(),
+                Longitude = Longitude |> as.numeric(),
                 Latitude = dplyr::if_else(Latitude < -12,
                                           Latitude / 1e6,
                                           Latitude),
