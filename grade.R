@@ -70,8 +70,7 @@ graus_10km
 ## Criando a grade ----
 
 grade <- sf::st_make_grid(cep,
-                 cellsize = graus_10km) |>
-  sf::st_make_valid()
+                 cellsize = graus_10km)
 
 ## Visualizando ----
 
@@ -88,8 +87,10 @@ grade |>
 
 grade_cep <- grade |>
   sf::st_sf() |>
-  sf::st_join(cep) |>
-  tidyr::drop_na()
+  sf::st_join(cep,
+              join = st_intersects) |>
+  tidyr::drop_na() |>
+  dplyr::mutate(FID = paste0("c", dplyr::row_number()))
 
 ### Visualizando ----
 
@@ -102,4 +103,5 @@ ggplot() +
 ## Exportando ----
 
 grade_cep |>
-  sf::st_write("cep_grade.shp")
+  sf::st_write("cep_grade.shp",
+               append = TRUE)
