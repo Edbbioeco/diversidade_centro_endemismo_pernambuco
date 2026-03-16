@@ -23,7 +23,7 @@ id_sps |> dplyr::glimpse()
 ### Tratando ----
 
 id_sps_trat <- id_sps |>
-  dplyr::select(id, valid_name) |>
+  dplyr::select(id, family, valid_name) |>
   dplyr::filter(!valid_name |> is.na()) |>
   dplyr::rename("species" = valid_name)
 
@@ -47,7 +47,9 @@ oc_vancine_trat <- oc_vancine |>
   dplyr::select(id, longitude, latitude) |>
   dplyr::left_join(id_sps_trat,
                    by = "id") |>
-  dplyr::filter(!longitude |> is.na() & !latitude |> is.na())
+  dplyr::filter(!longitude |> is.na() & !latitude |> is.na()) |>
+  dplyr::relocate(family:species,
+                  .before = longitude)
 
 oc_vancine_trat
 
@@ -90,7 +92,7 @@ oc_vancine_inter <- grade_cep |>
               join = st_intersects) |>
   dplyr::filter(!species |> is.na()) |>
   tibble::as_tibble() |>
-  dplyr::select(FID, species) |>
+  dplyr::select(FID, family, species) |>
   dplyr::mutate(presence = 1,
                 Source = "Vancine") |>
   dplyr::bind_cols(grade_cep |>
