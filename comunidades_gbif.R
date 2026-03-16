@@ -33,9 +33,15 @@ oc_gbif_trat <- oc_gbif |>
   dplyr::mutate(Longitude = Longitude |>
                   stringr::str_replace("^(-?\\d{2})(\\d+)$", "\\1.\\2") |>
                   as.numeric(),
-                Latitude = case_when(stringr::str_detect(as.character(Latitude), "^(-?[1-2])") ~ str_replace(as.character(Latitude), "^(-?\\d{2})(\\d+)$", "\\1.\\2"),
-                                     stringr::str_detect(as.character(Latitude), "^(-?[3-9])") ~ stringr::str_replace(as.character(Latitude), "^(-?\\d{1})(\\d+)$", "\\1.\\2"),
-                                     TRUE ~ as.character(Latitude)) |>
+                Latitude = case_when(stringr::str_detect(
+                  as.character(Latitude),
+                  "^(-?[1-2])") ~ str_replace(as.character(Latitude),
+                                              "^(-?\\d{2})(\\d+)$", "\\1.\\2"),
+                  stringr::str_detect(
+                    as.character(Latitude),
+                    "^(-?[3-9])") ~ stringr::str_replace(as.character(Latitude),
+                                                         "^(-?\\d{1})(\\d+)$", "\\1.\\2"),
+                  TRUE ~ as.character(Latitude)) |>
                   as.numeric()) |>
   dplyr::filter(!is.na(species) &
                   !is.na(Latitude) &
@@ -52,7 +58,7 @@ oc_gbif_trat
 
 ### Importando ----
 
-grade_cep <- sf::st_read("grade_cep.shp")
+grade_cep <- sf::st_read("cep_grade.shp")
 
 ### Visualizando ----
 
