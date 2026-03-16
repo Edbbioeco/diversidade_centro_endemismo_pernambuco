@@ -93,9 +93,9 @@ grade_cep <- grade |>
 
 grade_cep
 
-grade_cep |>
-  ggplot() +
-  geom_sf(color = "black", fill = "green4")
+ggplot() +
+  geom_sf(data = grade_cep, color = "black", fill = "green4") +
+  geom_sf(data = cep, color = "red", fill = "transparent")
 
 ## Exportando ----
 
