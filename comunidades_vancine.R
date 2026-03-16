@@ -92,7 +92,7 @@ oc_vancine_inter <- grade_cep |>
   tibble::as_tibble() |>
   dplyr::select(FID, species) |>
   dplyr::mutate(presence = 1,
-                Source = "GBIF") |>
+                Source = "Vancine") |>
   dplyr::bind_cols(grade_cep |>
                      sf::st_join(oc_vancine_shp,
                                  join = st_intersects) |>
