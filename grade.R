@@ -85,7 +85,9 @@ grade |>
 ### Recortando ----
 
 grade_cep <- grade |>
-  sf::st_intersection(cep)
+  sf::st_sf() |>
+  sf::st_join(cep) |>
+  tidyr::drop_na()
 
 ### Visualizando ----
 
