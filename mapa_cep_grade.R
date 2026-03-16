@@ -27,15 +27,15 @@ ggplot() +
 
 ### Importando ----
 
-ne <- geobr::read_state(year = 2019) |>
+cep <- geobr::read_state(year = 2019) |>
   dplyr::filter(abbrev_state %in% c("AL", "PE", "PB", "RN"))
 
 ### Visualizando ----
 
-ne
+cep
 
 ggplot() +
-  geom_sf(data = ne, color = "black")
+  geom_sf(data = cep, color = "black")
 
 ## Malha de grade ----
 
