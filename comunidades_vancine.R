@@ -105,3 +105,16 @@ oc_vancine_inter <- grade_cep |>
                                    "Latitude" = Y))
 
 oc_vancine_inter
+
+### Matriz ----
+
+oc_vancine_inter |>
+  tidyr::pivot_wider(names_from = species,
+                     values_from = presence,
+                     values_fn = function(x) 1,
+                     values_fill = 0)
+
+### Exportando ----
+
+oc_vancine_inter |>
+  openxlsx::write.xlsx("registros_vancine.xlsx")
