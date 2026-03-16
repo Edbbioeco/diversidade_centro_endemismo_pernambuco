@@ -82,11 +82,6 @@ grade |>
 
 ## Recorte ----
 
-### Alterando o crs ---
-
-grade <- grade |>
-  sf::st_transform(crs = sf::st_crs(cep))
-
 ### Recortando ----
 
 grade_cep <- grade |>
