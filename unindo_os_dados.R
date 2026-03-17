@@ -131,7 +131,7 @@ registros <- registros |>
       "Aplastodiscus sibilatus") ~ "Boana albomarginata",
     c("Hyla decipiens branneri",
       "Hyla decipiens decipiens") ~ "Dendropsophus decipiens",
-    "Hyla crepitans"  ~ "Boana creptans",
+    "Hyla crepitans"  ~ "Boana crepitans",
     c("Hyla senicula",
       "Hyla senicula senicula") ~ "Dendropsophus seniculus",
     "Hyla punctata" ~ "Boana punctata",
