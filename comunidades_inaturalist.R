@@ -55,4 +55,14 @@ inat |>
 
 ### Transformando um shapefile ----
 
-ocorrencias_s
+inat_sf <- inat |>
+  dplyr::filter(dplyr::across(.cols = dplyr::contains("itude"),
+                              .fns = ~!is.na(.))) |>
+  sf::st_as_sf(coords = c("longitude", "latitude"),
+               crs = grade |> sf::st_crs())
+
+inat_sf
+
+ggplot() +
+  geom_sf(data = grade, color = "forestgreen", fill = "transparent") +
+  geom_sf(data = inat_sf)
