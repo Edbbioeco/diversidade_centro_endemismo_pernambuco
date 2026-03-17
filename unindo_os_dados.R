@@ -176,7 +176,7 @@ registros <- registros |>
     "Leptodactylus caatingae" ~ "Leptodactylus macrosternum",
     "Agalychnis granulosa" ~ "Hylomantis granulosa",
     c("Adelophrnne nordestina",
-      "Adelophrynne nordestina") ~ "Adelophrynne nordestina",
+      "Adelophrynne nordestina") ~ "Adelophryne nordestina",
     "Vitreorana balionma" ~ "Vitreorana baliomma",
     "Phyllodytes tuberculosus" ~ "Phyllodytes edelmoi",
     "Physalaemus cicada" ~ "Physalaemus cuvieri",
