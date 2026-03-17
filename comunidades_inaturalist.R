@@ -101,7 +101,7 @@ oc_inat_inter <- grade |>
   tibble::as_tibble() |>
   dplyr::select(FID, family, species) |>
   dplyr::mutate(presence = 1,
-                Source = "Vancine") |>
+                Source = "iNaturalist") |>
   dplyr::bind_cols(grade |>
                      sf::st_join(inat_sf,
                                  join = st_intersects) |>
