@@ -24,8 +24,8 @@ registros |> dplyr::glimpse()
 
 matriz_sin <- registros |>
   dplyr::select(2:3) |>
-  dplyr::mutate(synonym = NA,
-                `vertlif present` = NA,
+  dplyr::distinct(species, .keep_all = TRUE) |>
+  dplyr::mutate(`vertlif present` = NA,
                 `present as` = NA,
                 replaced = NA,
                 `replaced species` = NA)
@@ -34,20 +34,5 @@ matriz_sin
 
 ## Exportando ----
 
-mat
-
-
-
-
-
-
-
-
-
-
-
-
-
-matriz_trat |>
-  dplyr::select(7:103) |>
-  names()
+matriz_sin |>
+  writexl::write_xlsx("matriz_sinonimios.xlsx")
