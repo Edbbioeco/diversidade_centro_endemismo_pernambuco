@@ -184,6 +184,7 @@ registros <- registros |>
     .default = species
   ),
   family = dplyr::case_when(species == "Pristimantis ramagii" ~ "Craugastoridae",
+                            species == "Pleurodema diplolistris" ~ "Leptodactylidae",
                             .default = family)) |>
   dplyr::filter(!species %in% c("Breviceps gibbosus",
                                 "Vitreorana baliomma",
