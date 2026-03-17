@@ -66,3 +66,15 @@ inat_sf
 ggplot() +
   geom_sf(data = grade, color = "forestgreen", fill = "transparent") +
   geom_sf(data = inat_sf)
+
+## Dados das famílias ----
+
+### Importando ----
+
+registro_gbif <- readxl::read_xlsx("registros_gbif.xlsx")
+
+### Visualizando ----
+
+registro_gbif
+
+registro_gbif |> dplyr::glimpse()
