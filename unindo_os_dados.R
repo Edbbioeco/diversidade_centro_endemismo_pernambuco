@@ -203,10 +203,6 @@ ggplot() +
 
 ### Removendo as comunidades com menos de 5 espécies ----
 
-matriz <- matriz |> as.data.frame()
-
-rownames(matriz) <- matriz$Assemblage
-
 comunidades <- matriz |>
   tibble::column_to_rownames(var = "Assemblage") |>
   dplyr::select(6:121) |>
