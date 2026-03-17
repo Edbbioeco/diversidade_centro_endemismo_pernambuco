@@ -4,10 +4,6 @@ library(sf)
 
 library(tidyverse)
 
-library(readxl)
-
-library(rinat)
-
 library(writexl)
 
 # Dados ----
@@ -25,18 +21,6 @@ grade
 ggplot() +
   geom_sf(data = grade, color = "forestgreen", fill = "transparent")
 
-## Dados das famílias ----
-
-### Importando ----
-
-registro_gbif <- readxl::read_xlsx("registros_gbif.xlsx")
-
-### Visualizando ----
-
-registro_gbif
-
-registro_gbif |> dplyr::glimpse()
-
 ## Registros de ocorrência do iNaturalist ----
 
 ### Delimitando o limite ----
@@ -48,11 +32,7 @@ limite_cep
 
 ### Importando ----
 
-inat <- rinat::get_inat_obs(taxon_name = "Amphibia",
-                            bounds = c(limite_cep["ymin"],
-                                       limite_cep["xmin"],
-                                       limite_cep["ymax"],
-                                       limite_cep["xmax"]))
+inat <- readr::read_csv("inaturalist.csv")
 
 ### Visualizando -----
 
@@ -60,25 +40,17 @@ inat
 
 inat |> dplyr::glimpse()
 
-inat |>
-  rinat::inat_map(map = "world") +
-  coord_sf(xlim = c(limite_cep["xmin"], limite_cep["xmax"]),
-           ylim = c(limite_cep["ymin"], limite_cep["ymax"]))
-
 ### Transformando um shapefile ----
 
 inat_sf <- inat |>
   dplyr::mutate(palavras = scientific_name |> stringr::str_count("\\S+")) |>
-  dplyr::filter(dplyr::across(.cols = dplyr::contains("itude"),
-                              .fns = ~!is.na(.)),
+  dplyr::filter(!longitude |> is.na(),
+                !latitude |> is.na(),
                 palavras > 1) |>
-  dplyr::select("species" = scientific_name,
+  dplyr::select("family" = taxon_family_name,
+                "species" = scientific_name,
                 longitude,
                 latitude) |>
-  dplyr::left_join(registro_gbif |>
-                     dplyr::select(species, family) |>
-                     dplyr::distinct(species, .keep_all = TRUE),
-                   by = "species") |>
   sf::st_as_sf(coords = c("longitude", "latitude"),
                crs = grade |> sf::st_crs())
 
