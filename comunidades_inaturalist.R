@@ -113,11 +113,11 @@ oc_inat_inter <- grade |>
                      dplyr::rename("Longitude" = X,
                                    "Latitude" = Y))
 
-oc_vancine_inter
+oc_inat_inter
 
 ### Matriz ----
 
-oc_vancine_inter |>
+oc_inat_inter |>
   tidyr::pivot_wider(names_from = species,
                      values_from = presence,
                      values_fn = function(x) 1,
@@ -125,5 +125,5 @@ oc_vancine_inter |>
 
 ### Exportando ----
 
-oc_vancine_inter |>
-  openxlsx::write.xlsx("registros_vancine.xlsx")
+oc_inat_inter |>
+  openxlsx::write.xlsx("registros_inaturalist.xlsx")
