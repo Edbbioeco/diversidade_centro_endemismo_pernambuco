@@ -4,9 +4,9 @@ library(sf)
 
 library(tidyverse)
 
-library(rinat)
-
 library(readxl)
+
+library(rinat)
 
 library(writexl)
 
@@ -24,6 +24,18 @@ grade
 
 ggplot() +
   geom_sf(data = grade, color = "forestgreen", fill = "transparent")
+
+## Dados das famílias ----
+
+### Importando ----
+
+registro_gbif <- readxl::read_xlsx("registros_gbif.xlsx")
+
+### Visualizando ----
+
+registro_gbif
+
+registro_gbif |> dplyr::glimpse()
 
 ## Registros de ocorrência do iNaturalist ----
 
@@ -58,6 +70,9 @@ inat |>
 inat_sf <- inat |>
   dplyr::filter(dplyr::across(.cols = dplyr::contains("itude"),
                               .fns = ~!is.na(.))) |>
+  dplyr::select("species" = scientific_name,
+                longitude,
+                latitude) |>
   sf::st_as_sf(coords = c("longitude", "latitude"),
                crs = grade |> sf::st_crs())
 
@@ -67,14 +82,42 @@ ggplot() +
   geom_sf(data = grade, color = "forestgreen", fill = "transparent") +
   geom_sf(data = inat_sf)
 
-## Dados das famílias ----
+# Comunidades ----
 
-### Importando ----
+## Espécies por grade ----
 
-registro_gbif <- readxl::read_xlsx("registros_gbif.xlsx")
+### Intersecção ----
 
-### Visualizando ----
+oc_inat_inter <- grade |>
+  sf::st_join(inat_sf,
+              join = st_intersects) |>
+  dplyr::filter(!species |> is.na()) |>
+  tibble::as_tibble() |>
+  dplyr::select(FID, family, species) |>
+  dplyr::mutate(presence = 1,
+                Source = "Vancine") |>
+  dplyr::bind_cols(grade |>
+                     sf::st_join(inat_sf,
+                                 join = st_intersects) |>
+                     dplyr::filter(!is.na(species)) |>
+                     sf::st_centroid() |>
+                     sf::st_coordinates() |>
+                     tibble::as_tibble() |>
+                     dplyr::select(1:2) |>
+                     dplyr::rename("Longitude" = X,
+                                   "Latitude" = Y))
 
-registro_gbif
+oc_vancine_inter
 
-registro_gbif |> dplyr::glimpse()
+### Matriz ----
+
+oc_vancine_inter |>
+  tidyr::pivot_wider(names_from = species,
+                     values_from = presence,
+                     values_fn = function(x) 1,
+                     values_fill = 0)
+
+### Exportando ----
+
+oc_vancine_inter |>
+  openxlsx::write.xlsx("registros_vancine.xlsx")
