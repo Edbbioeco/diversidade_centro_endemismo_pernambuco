@@ -36,14 +36,23 @@ limite_cep
 
 ### Importando ----
 
-ocorrencias <- rinat::get_inat_obs(taxon_name = "Amphibia",
-                                   bounds = c(limite_cep["ymin"],
-                                              limite_cep["xmin"],
-                                              limite_cep["ymax"],
-                                              limite_cep["xmax"]))
+inat <- rinat::get_inat_obs(taxon_name = "Amphibia",
+                            bounds = c(limite_cep["ymin"],
+                                       limite_cep["xmin"],
+                                       limite_cep["ymax"],
+                                       limite_cep["xmax"]))
 
 ### Visualizando -----
 
-ocorrencias
+inat
 
-ocorrencias |> dplyr::glimpse()
+inat |> dplyr::glimpse()
+
+inat |>
+  rinat::inat_map(map = "world") +
+  coord_sf(xlim = c(limite_cep["xmin"], limite_cep["xmax"]),
+           ylim = c(limite_cep["ymin"], limite_cep["ymax"]))
+
+### Transformando um shapefile ----
+
+ocorrencias_s
