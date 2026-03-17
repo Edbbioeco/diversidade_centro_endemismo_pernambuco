@@ -6,6 +6,8 @@ library(tidyverse)
 
 library(rinat)
 
+library(readxl)
+
 library(writexl)
 
 # Dados ----
@@ -40,4 +42,8 @@ ocorrencias <- rinat::get_inat_obs(taxon_name = "Amphibia",
                                               limite_cep["ymax"],
                                               limite_cep["xmax"]))
 
-###
+### Visualizando -----
+
+ocorrencias
+
+ocorrencias |> dplyr::glimpse()
