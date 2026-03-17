@@ -28,7 +28,8 @@ matriz_sin <- registros |>
   dplyr::mutate(`vertlife present` = NA,
                 `vertlife name` = NA,
                 replaced = NA,
-                `replaced species` = NA)
+                `replaced species` = NA) |>
+  dplyr::arrange(family, species)
 
 matriz_sin
 
