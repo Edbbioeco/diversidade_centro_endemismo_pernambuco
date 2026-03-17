@@ -25,8 +25,8 @@ registros |> dplyr::glimpse()
 matriz_sin <- registros |>
   dplyr::select(2:3) |>
   dplyr::distinct(species, .keep_all = TRUE) |>
-  dplyr::mutate(`vertlif present` = NA,
-                `present as` = NA,
+  dplyr::mutate(`vertlife present` = NA,
+                `vertlife name` = NA,
                 replaced = NA,
                 `replaced species` = NA)
 
