@@ -134,7 +134,6 @@ registros <- registros |>
     "Hyla crepitans"  ~ "Boana crepitans",
     c("Hyla senicula",
       "Hyla senicula senicula") ~ "Dendropsophus seniculus",
-    "Hyla punctata" ~ "Boana punctata",
     "Phrynohyas venulosa" ~ "Trachycephalus typhonius",
     "Pristimantis vinhai" ~ "Pristimantis ramagii",
     c("Colostethus alagoanus",
