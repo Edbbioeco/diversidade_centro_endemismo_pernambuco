@@ -182,7 +182,9 @@ registros <- registros |>
     "Physalaemus cicada" ~ "Physalaemus cuvieri",
     "Pseudopaludicola pocoto" ~ "Pseudopaludicola mystacalis",
     .default = species
-  )) |>
+  ),
+  family = dplyr::case_when(species == "Pristimantis ramagii" ~ "Craugastoridae",
+                            .default = family)) |>
   dplyr::filter(!species %in% c("Breviceps gibbosus",
                                 "Vitreorana baliomma",
                                 "Ceratophrys joazeirensis",
