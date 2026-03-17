@@ -75,7 +75,10 @@ inat_sf <- inat |>
   dplyr::select("species" = scientific_name,
                 longitude,
                 latitude) |>
-  dplyr::left_join() |>
+  dplyr::left_join(registro_gbif |>
+                     dplyr::select(species, family) |>
+                     dplyr::distinct(species, .keep_all = TRUE),
+                   by = "species") |>
   sf::st_as_sf(coords = c("longitude", "latitude"),
                crs = grade |> sf::st_crs())
 
