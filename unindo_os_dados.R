@@ -114,21 +114,25 @@ registros <- registros |>
       "Rhinella marina",
       "Rhinella schneideri") ~ "Rhinella diptycha",
     c("Dendropsophus werneri",
-      "Dendropsophus rubicundulus") ~ "Dendropsophus branneri",
-    "Dendropsophus leucophyllatus" ~ "Dendropsophus elegans",
+      "Dendropsophus rubicundulus",
+      "Dendropsophus seniculus",
+      "Dendropsophus anceps") ~ "Dendropsophus branneri",
+    ("Dendropsophus leucophyllatus") ~ "Dendropsophus elegans",
     c("Leptodactylus labyrinthicus",
       "Leptodactylus pentadactylus",
       "Leptodactylus pentadactylus labyrinthicus") ~ "Leptodactylus vastus",
     "Hypsiboas raniceps" ~ "Boana raniceps",
-    "Phyllomedusa nordestina" ~ "Pithecopus gonzagai",
+    c("Phyllomedusa nordestina",
+      "Pithecopus nordestinus",
+      "Pithecopus hypochondrialis") ~ "Pithecopus gonzagai",
     c("Hypsiboas albomarginatus",
-      "Hyla albomarginata") ~ "Boana albomarginata",
+      "Hyla albomarginata",
+      "Aplastodiscus sibilatus") ~ "Boana albomarginata",
     c("Hyla decipiens branneri",
       "Hyla decipiens decipiens") ~ "Dendropsophus decipiens",
     "Hyla crepitans"  ~ "Boana creptans",
     c("Hyla senicula",
       "Hyla senicula senicula") ~ "Dendropsophus seniculus",
-    "Hyla leucophyllata" ~ "Dendropsophus leucophyllatus",
     "Hyla punctata" ~ "Boana punctata",
     "Phrynohyas venulosa" ~ "Trachycephalus typhonius",
     "Pristimantis vinhai" ~ "Pristimantis ramagii",
@@ -137,7 +141,8 @@ registros <- registros |>
       "Allobates olfersioides") ~ "Dryadobates alagoanus",
     "Hyla raniceps" ~ "Boana raniceps",
     "Hypsiboas semilineatus" ~ "Boana semilineata",
-    "Hypsiboas atlanticus" ~ "Boana atlantica",
+    c("Hypsiboas atlanticus",
+      "Boana punctata") ~ "Boana atlantica",
     "Hypsiboas exastis" ~ "Boana exastis",
     c("Hypsiboas freicanecae",
       "Boana freicanecaee") ~ "Boana freicanecae",
@@ -148,30 +153,45 @@ registros <- registros |>
     "Ischnocnema ramagii" ~ "Pristimantis ramagii",
     c("Ololygon v-signata",
       "Scinax similis",
-      "Osteopilus ocellatus") ~ "Scinax x-signatus",
+      "Osteopilus ocellatus",
+      "Scinax nasicus",
+      "Ololygon strigilata",
+      "Scinax strigilatus") ~ "Scinax x-signatus",
     c("Phyllomedusa hypocondrialis",
       "Phyllomedusa hypochondrialis") ~ "Pithecopus gonzagai",
     c("Hypsiboas crepitans",
       "Boana pardalis") ~ "Boana crepitans",
     "Chiasmocleis alagoanus" ~ "Chiasmocleis alagoana",
     "Scinax skuki" ~ "Ololygon skuki",
+    "Scinax squalirostris" ~ "Scinax fuscomarginatus",
     "Hypsiboas faber" ~ "Boana faber",
     "Scinax muriciensis" ~ "Ololygon muriciensis",
     "Scinax agilis" ~ "Ololygon agilis",
     "Elachistocleis ovalis" ~ "Elachistocleis cesarii",
     "Dendropsophus decioiens" ~ "Dendropsophus decipiens",
-    "Leptodactylus marmoratus" ~ "Adenomera hylaedactyla",
+    c("Leptodactylus marmoratus",
+      "Adenomera marmorata",
+      "Adenomera andreae") ~ "Adenomera hylaedactyla",
     "Leptodactylus caatingae" ~ "Leptodactylus macrosternum",
     "Agalychnis granulosa" ~ "Hylomantis granulosa",
     c("Adelophrnne nordestina",
       "Adelophrynne nordestina") ~ "Adelophrynne nordestina",
     "Vitreorana balionma" ~ "Vitreorana baliomma",
+    "Phyllodytes tuberculosus" ~ "Phyllodytes edelmoi",
+    "Physalaemus cicada" ~ "Physalaemus cuvieri",
+    "Pseudopaludicola pocoto" ~ "Pseudopaludicola mystacalis",
     .default = species
   )) |>
   dplyr::filter(!species %in% c("Breviceps gibbosus",
                                 "Vitreorana baliomma",
                                 "Ceratophrys joazeirensis",
-                                "Siphonops annulatus"))
+                                "Siphonops annulatus",
+                                "Haddadus binotatus",
+                                "Scinax cuspidatus",
+                                "Siphonops paulensis",
+                                "Pseudis paradoxa",
+                                "Stereocyclops incrassatus",
+                                "Physalaemus erikae"))
 
 registros
 
@@ -205,7 +225,7 @@ ggplot() +
 
 comunidades <- matriz |>
   tibble::column_to_rownames(var = "Assemblage") |>
-  dplyr::select(6:121) |>
+  dplyr::select(6:102) |>
   vegan::specnumber() |>
   as.data.frame() |>
   tibble::rownames_to_column() |>
@@ -228,7 +248,7 @@ ggplot() +
 ### Removendo possíveies espécies sem registro ----
 
 especies_retirar <- matriz_trat |>
-  tidyr::pivot_longer(cols = 7:122,
+  tidyr::pivot_longer(cols = 7:103,
                       names_to = "Espécie",
                       values_to = "Presença") |>
   dplyr::summarise(Abundancia = Presença |> sum(),
