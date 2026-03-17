@@ -68,11 +68,14 @@ inat |>
 ### Transformando um shapefile ----
 
 inat_sf <- inat |>
+  dplyr::mutate(palavras = scientific_name |> stringr::str_count("\\S+")) |>
   dplyr::filter(dplyr::across(.cols = dplyr::contains("itude"),
-                              .fns = ~!is.na(.))) |>
+                              .fns = ~!is.na(.)),
+                palavras > 1) |>
   dplyr::select("species" = scientific_name,
                 longitude,
                 latitude) |>
+  dplyr::left_join() |>
   sf::st_as_sf(coords = c("longitude", "latitude"),
                crs = grade |> sf::st_crs())
 
