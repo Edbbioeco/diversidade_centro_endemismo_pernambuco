@@ -24,3 +24,13 @@ ggplot() +
   geom_sf(data = grade, color = "forestgreen", fill = "transparent")
 
 ## Registros de ocorrência do iNaturalist ----
+
+### Delimitando o limite ----
+
+limite_cep <- grade |>
+  sf::st_bbox()
+
+limite_cep
+
+### Importando ----
+
