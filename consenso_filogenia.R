@@ -12,7 +12,7 @@ library(phytools)
 
 ### Importando ----
 
-tree <- ape::read.nexus("output3.nex")
+tree <- ape::read.nexus("output.nex")
 
 ### Visualizando ----
 
@@ -46,7 +46,7 @@ tree_cons$edge.length |>
   data.frame() |>
   dplyr::rename("Comprimento dos ramos" = 1) |>
   ggplot(aes(`Comprimento dos ramos`)) +
-  geom_histogram(color = 'black', binwidth = 5)
+  geom_histogram(color = 'black', binwidth = 2.5)
 
 # Exportando ----
 
