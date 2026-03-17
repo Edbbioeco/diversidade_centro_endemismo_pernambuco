@@ -34,3 +34,10 @@ limite_cep
 
 ### Importando ----
 
+ocorrencias <- rinat::get_inat_obs(taxon_name = "Amphibia",
+                                   bounds = c(limite_cep["ymin"],
+                                              limite_cep["xmin"],
+                                              limite_cep["ymax"],
+                                              limite_cep["xmax"]))
+
+###
