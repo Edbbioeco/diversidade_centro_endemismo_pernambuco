@@ -181,10 +181,11 @@ registros <- registros |>
     "Phyllodytes tuberculosus" ~ "Phyllodytes edelmoi",
     "Physalaemus cicada" ~ "Physalaemus cuvieri",
     "Pseudopaludicola pocoto" ~ "Pseudopaludicola mystacalis",
+    "Pleurodema diplolistris" ~ "Pleurodema diplolister",
     .default = species
   ),
   family = dplyr::case_when(species == "Pristimantis ramagii" ~ "Craugastoridae",
-                            species == "Pleurodema diplolistris" ~ "Leptodactylidae",
+                            species == "Pleurodema diplolister" ~ "Leptodactylidae",
                             .default = family)) |>
   dplyr::filter(!species %in% c("Breviceps gibbosus",
                                 "Vitreorana baliomma",
