@@ -119,7 +119,8 @@ tree |> ape::plot.phylo(type = "fan",
 
 ## Visualizando ----
 
-ggtree::ggtree(tree, layout = "circular") +
+tree |>
+  ggtree::ggtree(layout = "circular") +
   ggtree::geom_tiplab(color = "black",
                       size = 2,
                       fontface = "bold.italic")  +
