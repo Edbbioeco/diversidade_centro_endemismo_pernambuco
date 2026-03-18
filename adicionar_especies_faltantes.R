@@ -117,6 +117,82 @@ tree |> ape::plot.phylo(type = "fan",
                         cex = 0.45,
                         label.offset = 0.001)
 
+## Alterando a posição dos gêneros ----
+
+### Ololygon e Scinax ----
+
+#### Puxando as espécies dos generos ----
+
+gen_ololygon <- grep("Ololygon", tree$tip.label, value = TRUE)
+
+gen_ololygon
+
+gen_scinax <- grep("Scinax", tree$tip.label, value = TRUE)
+
+gen_scinax
+
+#### Arvore para cada gênero ----
+
+arvore_ololygon <- tree |>
+  ape::extract.clade(ape::getMRCA(tree, gen_ololygon))
+
+arvore_ololygon
+
+arvore_ololygon |>
+  ape::plot.phylo(type = "fan",
+                  show.tip.label = TRUE,
+                  edge.color = "blue",
+                  edge.width = 1.5,
+                  tip.color = "black",
+                  cex = 0.45,
+                  label.offset = 0.001)
+
+arvore_scinax <- tree |>
+  ape::extract.clade(ape::getMRCA(tree, gen_scinax))
+
+arvore_scinax
+
+arvore_scinax |>
+  ape::plot.phylo(type = "fan",
+                  show.tip.label = TRUE,
+                  edge.color = "blue",
+                  edge.width = 1.5,
+                  tip.color = "black",
+                  cex = 0.45,
+                  label.offset = 0.001)
+
+#### Unindo os clados ----
+
+sconax_ologygon_clado <- ape::bind.tree(arvore_scinax,
+                                        arvore_ololygon,
+                                        position = 1)
+
+sconax_ologygon_clado
+
+sconax_ologygon_clado |>
+  ape::plot.phylo(show.tip.label = TRUE,
+                  edge.color = "blue",
+                  edge.width = 1.5,
+                  tip.color = "black",
+                  cex = 0.45,
+                  label.offset = 0.001)
+
+
+
+
+node_scinax_ololygon <- tree |>
+  ape::getMRCA(tip = c("Scinax_ruber", "Ololygon_agilis"))
+
+tree |>
+  ape::rotate(node_scinax_ololygon) |>
+  ape::plot.phylo(type = "fan",
+                  show.tip.label = TRUE,
+                  edge.color = "blue",
+                  edge.width = 1.5,
+                  tip.color = "black",
+                  cex = 0.45,
+                  label.offset = 0.001)
+
 ## Corrigindo o nome das espécies ----
 
 sinonimios <- sinonimios |>
@@ -156,79 +232,6 @@ ggtree::ggtree(tree, layout = "circular") +
 ## Exportando ----
 
 tree |> ape::write.tree("tree_cep.phy")
-
-## Alterando a posição dos gêneros ----
-
-### Ololygon e Scinax ----
-
-#### Puxando as espécies dos generos ----
-
-gen_ololygon <- grep("Ololygon", tree$tip.label, value = TRUE)
-
-gen_ololygon
-
-gen_scinax <- grep("Scinax", tree$tip.label, value = TRUE)
-
-gen_scinax
-
-#### Arvore para cada gênero ----
-
-arvore_ololygon <- tree |>
-  ape::extract.clade(ape::getMRCA(tree, gen_ololygon))
-
-arvore_ololygon |>
-  ape::plot.phylo(type = "fan",
-                  show.tip.label = TRUE,
-                  edge.color = "blue",
-                  edge.width = 1.5,
-                  tip.color = "black",
-                  cex = 0.45,
-                  label.offset = 0.001)
-
-arvore_scinax <- tree |>
-  ape::extract.clade(ape::getMRCA(tree, gen_scinax))
-
-arvore_scinax |>
-  ape::plot.phylo(type = "fan",
-                  show.tip.label = TRUE,
-                  edge.color = "blue",
-                  edge.width = 1.5,
-                  tip.color = "black",
-                  cex = 0.45,
-                  label.offset = 0.001)
-
-#### Unindo os clados ----
-
-sconax_ologygon_clado <- ape::bind.tree(arvore_scinax,
-                                        arvore_ololygon,
-                                        position = 0)
-
-sconax_ologygon_clado
-
-sconax_ologygon_clado |>
-  ape::plot.phylo(type = "fan",
-                  show.tip.label = TRUE,
-                  edge.color = "blue",
-                  edge.width = 1.5,
-                  tip.color = "black",
-                  cex = 0.45,
-                  label.offset = 0.001)
-
-
-
-
-node_scinax_ololygon <- tree |>
-  ape::getMRCA(tip = c("Scinax_ruber", "Ololygon_agilis"))
-
-tree |>
-  ape::rotate(node_scinax_ololygon) |>
-  ape::plot.phylo(type = "fan",
-                  show.tip.label = TRUE,
-                  edge.color = "blue",
-                  edge.width = 1.5,
-                  tip.color = "black",
-                  cex = 0.45,
-                  label.offset = 0.001)
 
 
 
