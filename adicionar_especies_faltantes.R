@@ -44,7 +44,11 @@ sinonimios |> dplyr::glimpse()
 
 ## Nome atualizado das espécies da filogenia ----
 
-
+sin_trat <- sinonimios |>
+  dplyr::filter(!`vertlife name` |> is.na()) |>
+  dplyr::arrange(`vertlife name` = `vertlife name` |>
+                   forcats::fct_relevel(tree$tip.label |>
+                                          stringr::str_replace("_", " ")))
 
 
 
