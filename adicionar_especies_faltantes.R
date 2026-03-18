@@ -58,10 +58,24 @@ sps_atualizado <- sin_trat |>
 
 sps_atualizado
 
+## Atualizando o nome das espécies na filogenia ----
+
+tree$tip.label <- sps_atualizado
+
+tree$tip.label
+
+tree |> ape::plot.phylo(type = "fan",
+                        show.tip.label = TRUE,
+                        edge.color = "blue",
+                        edge.width = 1.5,
+                        tip.color = "black",
+                        cex = 0.45,
+                        label.offset = 0.001)
 
 
-
-
+setdiff(tree$tip.label, sin_trat |>
+          dplyr::pull(`vertlife name`) |>
+          stringr::str_replace(" ", "_"))
 
 
 
