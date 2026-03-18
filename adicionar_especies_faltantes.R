@@ -42,6 +42,29 @@ sinonimios |> dplyr::glimpse()
 
 # Tratando a filogenia ----
 
+## Nome atualizado das espécies da filogenia ----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Espécies que faltam ----
 
 sps_faltam <- sinonimios |>
