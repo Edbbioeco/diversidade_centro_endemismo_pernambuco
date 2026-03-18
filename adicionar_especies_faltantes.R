@@ -72,10 +72,9 @@ tree |> ape::plot.phylo(type = "fan",
                         cex = 0.45,
                         label.offset = 0.001)
 
+## Alterando a posição dos gêneros ----
 
-setdiff(tree$tip.label, sin_trat |>
-          dplyr::pull(`vertlife name`) |>
-          stringr::str_replace(" ", "_"))
+### Ololygon e Scinax ----
 
 
 
