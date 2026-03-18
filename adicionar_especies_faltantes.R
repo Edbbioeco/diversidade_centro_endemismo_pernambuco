@@ -167,6 +167,12 @@ tree_trat |>
                   cex = 0.45,
                   label.offset = 0.001)
 
+#### Nó ancestral do gênero Scinax ----
+
+scinax_no <- tree_trat |> ape::getMRCA( gen_scinax)
+
+scinax_no
+
 #### Unindo os clados ----
 
 sconax_ologygon_clado <- ape::bind.tree(arvore_scinax,
