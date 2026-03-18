@@ -38,8 +38,7 @@ tree |> ape::plot.phylo(type = "fan",
 
 ### Importando ----
 
-sinonimios <- readxl::read_xlsx("lista_sinonimos.xlsx", sheet = 3) |>
-  dplyr::distinct(Espécie, .keep_all = TRUE)
+sinonimios <- readxl::read_xlsx("matriz_sinonimios.xlsx")
 
 ### Visualizando ----
 
@@ -53,6 +52,7 @@ sinonimios |> dplyr::glimpse()
 
 dados_familias <- data.frame(Espécie = tree$tip.label) |>
   dplyr::left_join(sinonimios |>
+                     dplyr::rename() |>
                      dplyr::mutate(Espécie = Espécie |> stringr::str_replace(" ", "_")),
                    by = "Espécie") |>
   dplyr::select(1, 3) |>
