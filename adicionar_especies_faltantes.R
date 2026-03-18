@@ -50,6 +50,8 @@ sin_trat <- sinonimios |>
                    forcats::fct_relevel(tree$tip.label |>
                                           stringr::str_replace("_", " ")))
 
+sin_trat |> as.data.frame()
+
 
 
 
