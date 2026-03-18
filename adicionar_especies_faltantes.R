@@ -86,6 +86,8 @@ gen_scinax <- grep("Scinax", tree$tip.label, value = TRUE)
 
 gen_scinax
 
+#### Arvore para cada gênero ----
+
 arvore_ololygon <- tree |>
   ape::extract.clade(ape::getMRCA(tree, gen_ololygon))
 
@@ -96,7 +98,13 @@ arvore_scinax <- tree |>
 
 arvore_scinax
 
+#### Unindo os clados ----
 
+sconax_ologygon_clado <- ape::bind.tree(arvore_scinax,
+                                        arvore_ololygon,
+                                        position = 0)
+
+sconax_ologygon_clado
 
 
 
