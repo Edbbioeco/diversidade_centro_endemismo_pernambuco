@@ -76,6 +76,44 @@ tree |> ape::plot.phylo(type = "fan",
 
 ### Ololygon e Scinax ----
 
+#### Puxando as espécies dos generos ----
+
+gen_ololygon <- grep("Ololygon", tree$tip.label, value = TRUE)
+
+gen_ololygon
+
+gen_scinax <- grep("Scinax", tree$tip.label, value = TRUE)
+
+gen_scinax
+
+arvore_ololygon <- tree |>
+  ape::extract.clade(ape::getMRCA(tree, gen_ololygon))
+
+arvore_ololygon
+
+arvore_scinax <- tree |>
+  ape::extract.clade(ape::getMRCA(tree, gen_scinax))
+
+arvore_scinax
+
+
+
+
+
+
+node_scinax_ololygon <- tree |>
+  ape::getMRCA(tip = c("Scinax_ruber", "Ololygon_agilis"))
+
+tree |>
+  ape::rotate(node_scinax_ololygon) |>
+  ape::plot.phylo(type = "fan",
+                  show.tip.label = TRUE,
+                  edge.color = "blue",
+                  edge.width = 1.5,
+                  tip.color = "black",
+                  cex = 0.45,
+                  label.offset = 0.001)
+
 
 
 
