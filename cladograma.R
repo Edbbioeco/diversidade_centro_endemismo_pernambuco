@@ -52,11 +52,12 @@ sinonimios |> dplyr::glimpse()
 
 dados_familias <- data.frame(Espécie = tree$tip.label) |>
   dplyr::left_join(sinonimios |>
-                     dplyr::rename() |>
+                     dplyr::rename("Espécie" = species) |>
                      dplyr::mutate(Espécie = Espécie |> stringr::str_replace(" ", "_")),
                    by = "Espécie") |>
-  dplyr::select(1, 3) |>
-  dplyr::rename("label" = Espécie) |>
+  dplyr::select(1, 2) |>
+  dplyr::rename("label" = Espécie,
+                "Família" = family) |>
   dplyr::distinct(label, Família) |>
   dplyr::mutate(Família = dplyr::if_else(label |>
                                            stringr::str_detect("Pithecopus|Hylomantis"),
