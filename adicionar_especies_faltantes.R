@@ -52,6 +52,12 @@ sin_trat <- sinonimios |>
 
 sin_trat |> as.data.frame()
 
+sps_atualizado <- sin_trat |>
+  dplyr::pull(species) |>
+  stringr::str_replace(" ", "_")
+
+sps_atualizado
+
 
 
 
