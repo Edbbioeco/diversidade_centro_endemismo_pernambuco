@@ -72,6 +72,91 @@ tree |> ape::plot.phylo(type = "fan",
                         cex = 0.45,
                         label.offset = 0.001)
 
+
+## Espécies que faltam ----
+
+sps_faltam <- sinonimios |>
+  dplyr::filter(`vertlife present` == "Não" & replaced == "Não") |>
+  dplyr:::pull(species)
+
+sps_faltam
+
+novas_especies <- data.frame(especie = sps_faltam |> stringr::str_replace(" ", "_"),
+                             genero = sps_faltam |> stringr::word(1))
+
+novas_especies
+
+## Adicionando espécies faltantes ----
+
+tree$tip.label
+
+tree$tip.label |> length()
+
+adicionar_sps <- function(id){
+
+  tree <<- phytools::add.species.to.genus(tree |>
+                                            phytools::force.ultrametric(),
+                                          novas_especies$especie[id])
+}
+
+id <- 1:nrow(novas_especies)
+
+id
+
+purrr::map(id, adicionar_sps)
+
+tree$tip.label
+
+tree$tip.label |> length()
+
+tree |> ape::plot.phylo(type = "fan",
+                        show.tip.label = TRUE,
+                        edge.color = "blue",
+                        edge.width = 1.5,
+                        tip.color = "black",
+                        cex = 0.45,
+                        label.offset = 0.001)
+
+## Corrigindo o nome das espécies ----
+
+sinonimios <- sinonimios |>
+  dplyr::mutate(Espécie = Espécie |>  stringr::str_replace(" ", "_"),
+                Sinonímio = Sinonímio |> stringr::str_replace(" ", "_"),
+                Sinonímio = Sinonímio |> factor(levels = tree$tip.label)) |>
+  dplyr::arrange(Sinonímio)
+
+sinonimios$Sinonímio
+
+sinonimios$Espécie
+
+tree$tip.label
+
+corrigir_tax <- function(id){
+
+  if(tree$tip.label[id] != sinonimios$Espécie[id]){
+
+    tree$tip.label[id] <<- sinonimios$Espécie[id]
+
+  }
+
+}
+
+id <- 1:length(tree$tip.label)
+
+purrr::map(id, corrigir_tax)
+
+## Visualizando ----
+
+ggtree::ggtree(tree, layout = "circular") +
+  ggtree::geom_tiplab(color = "black",
+                      size = 2,
+                      fontface = "bold.italic")  +
+  ggtree::theme_tree()
+
+## Exportando ----
+
+tree |> ape::write.tree("tree_cep.phy")
+
 ## Alterando a posição dos gêneros ----
 
 ### Ololygon e Scinax ----
@@ -91,12 +176,26 @@ gen_scinax
 arvore_ololygon <- tree |>
   ape::extract.clade(ape::getMRCA(tree, gen_ololygon))
 
-arvore_ololygon
+arvore_ololygon |>
+  ape::plot.phylo(type = "fan",
+                  show.tip.label = TRUE,
+                  edge.color = "blue",
+                  edge.width = 1.5,
+                  tip.color = "black",
+                  cex = 0.45,
+                  label.offset = 0.001)
 
 arvore_scinax <- tree |>
   ape::extract.clade(ape::getMRCA(tree, gen_scinax))
 
-arvore_scinax
+arvore_scinax |>
+  ape::plot.phylo(type = "fan",
+                  show.tip.label = TRUE,
+                  edge.color = "blue",
+                  edge.width = 1.5,
+                  tip.color = "black",
+                  cex = 0.45,
+                  label.offset = 0.001)
 
 #### Unindo os clados ----
 
@@ -105,6 +204,15 @@ sconax_ologygon_clado <- ape::bind.tree(arvore_scinax,
                                         position = 0)
 
 sconax_ologygon_clado
+
+sconax_ologygon_clado |>
+  ape::plot.phylo(type = "fan",
+                  show.tip.label = TRUE,
+                  edge.color = "blue",
+                  edge.width = 1.5,
+                  tip.color = "black",
+                  cex = 0.45,
+                  label.offset = 0.001)
 
 
 
