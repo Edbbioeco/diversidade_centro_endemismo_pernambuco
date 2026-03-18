@@ -119,6 +119,10 @@ tree |> ape::plot.phylo(type = "fan",
 
 ## Alterando a posição dos gêneros ----
 
+## Arvore de tratamento ----
+
+tree_trat <- tree
+
 ### Ololygon e Scinax ----
 
 #### Puxando as espécies dos generos ----
