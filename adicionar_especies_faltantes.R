@@ -151,12 +151,14 @@ arvore_ololygon |>
                   cex = 0.45,
                   label.offset = 0.001)
 
-arvore_scinax <- tree |>
-  ape::extract.clade(ape::getMRCA(tree, gen_scinax))
+#### Removendo o gênero Ololygon ----
 
-arvore_scinax
+tree_trat <- tree_trat |>
+  ape::drop.tip(tip = gen_ololygon)
 
-arvore_scinax |>
+tree_trat
+
+tree_trat |>
   ape::plot.phylo(type = "fan",
                   show.tip.label = TRUE,
                   edge.color = "blue",
